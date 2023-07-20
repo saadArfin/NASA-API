@@ -1,11 +1,13 @@
 const request = require('supertest');
 const app = require('../../app');
 const {mongoConnect, mongoDisconnect} = require('../../services/mongo');
+const { loadPlanetsData } = require('../../models/planets.module');
 
 
 describe('Launches API', () =>{
     beforeAll(async () =>{//This is crucial bcz we have to first connect with mongoDB as api is communicating with mongoDB for data.
         await mongoConnect();
+        await loadPlanetsData();
     });
 
     afterAll(async () =>{//We did this bcz we thought this is the cause of error while testing and also it's a good practice to disconnect from a database after we have run through our tests.
